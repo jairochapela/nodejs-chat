@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-chat",
+  "version": "1.0.0",
+  "description": "Chat NodeJS, con Express e Socket.io",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "chat",
+    "nodejs",
+    "express",
+    "socket.io"
+  ],
+  "author": "Jairo Chapela-Martinez",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^4.4.0"
+  }
+}

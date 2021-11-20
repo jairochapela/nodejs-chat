@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang=”en”>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.0/socket.io.js"
+        integrity="sha512-nYuHvSAhY5lFZ4ixSViOwsEKFvlxHMU2NHts1ILuJgOS6ptUmAGt/0i5czIgMOahKZ6JN84YFDA+mCdky7dD8A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Chat</title>
+
+    <style>
+        #formulario {
+            position: fixed;
+            bottom: 8px;
+            width: 100%;
+            background-color: white;
+            border-top: solid 1px black;
+        }
+
+        .message {
+            margin: 18px;
+            text-align: right;
+        }
+
+        .message.mine {
+            text-align: left;
+        }
+
+        .message > span {
+            background-color: lightgray;
+            border-radius: 10px;
+            padding: 8px;
+            border-radius: 10px 10px 0 10px;
+        }
+
+        .message.mine > span {
+            background-color: lightgreen;
+            border-radius: 10px 10px 10px 0;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>Your messages are here</h1>
+    <div id="msgBox"></div>
+
+    <form id="formulario" action="http://localhost:8000/" method="post" onsubmit="enviarMensaxe(event)">
+        <input type="text" name="message" id="message" autofocus required>
+        <input type="submit" value="Enviar">
+    </form>
+
+    <script>
+        const msgBox = document.getElementById("msgBox")
+        const socket = io.connect("http://localhost:8000/liveData")
+        socket.on("new-data", (data) => {
+            let div = document.createElement("div");
+            let bocadillo = document.createElement("span");
+            if (data.username === username) {
+                div.setAttribute("class", "message mine");
+                //bocadillo.setAttribute("class", "boca mine");
+                bocadillo.innerText = data.message;
+            } else {
+                div.setAttribute("class", "message other");
+                //bocadillo.setAttribute("class", "boca other");
+                bocadillo.innerText = data.username + ": " + data.message;
+            }
+            div.appendChild(bocadillo);
+            msgBox.appendChild(div);
+            //msgBox.innerHTML += (data.timestamp + ":" + data.username + ">" + data.message + "<br/>")
+            window.scrollTo(0,document.body.scrollHeight);
+        })
+
+        const username = prompt("Escriba un nome de usuario")
+        socket.emit("user-connected", username)
+
+        const formulario = document.getElementById('formulario');
+
+        function enviarMensaxe(event) {
+            event.preventDefault();
+
+            var data = new URLSearchParams();
+            data.append('username', username);
+            data.append('message', formulario.message.value);
+            fetch("", {method:"POST", body:data});
+            formulario.reset();        
+        }
+    </script>
+</body>
+
+</html>
