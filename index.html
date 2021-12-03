@@ -51,7 +51,7 @@
 
     <script>
         const msgBox = document.getElementById("msgBox")
-        const socket = io.connect("http://localhost:8000/liveData")
+        const socket = io.connect("http://localhost:3000/liveData")
         socket.on("new-data", (data) => {
             let div = document.createElement("div");
             let bocadillo = document.createElement("span");
