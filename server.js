@@ -1,6 +1,6 @@
 const express = require("express") // Importing Express
 const app = express() // Creating Express Server
-const host = "localhost" // Specifying Host
+const host = "0.0.0.0" // Specifying Host
 const port = 3000 // Specifying Port number
 // Creating Http Server from Express App to work with socket.io
 const http = require("http").Server(app);
