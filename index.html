@@ -8,6 +8,10 @@
     <title>Chat</title>
 
     <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
         #formulario {
             position: fixed;
             bottom: 8px;
@@ -18,30 +22,30 @@
 
         .message {
             margin: 18px;
-            text-align: right;
+            text-align: left;
         }
 
         .message.mine {
-            text-align: left;
+            text-align: right;
         }
 
         .message > span {
             background-color: lightgray;
             border-radius: 10px;
             padding: 8px;
-            border-radius: 10px 10px 0 10px;
+            border-radius: 10px 10px 10px 0;
         }
 
         .message.mine > span {
             background-color: lightgreen;
-            border-radius: 10px 10px 10px 0;
+            border-radius: 10px 10px 0 10px;
         }
 
     </style>
 </head>
 
 <body>
-    <h1>Your messages are here</h1>
+    <h1>Superchat</h1>
     <div id="msgBox"></div>
 
     <form id="formulario" action="http://localhost:8000/" method="post" onsubmit="enviarMensaxe(event)">
